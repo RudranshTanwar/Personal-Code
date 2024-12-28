@@ -1,0 +1,13 @@
+.floating-box {
+    position: relative; /* or absolute, depending on your design */
+    margin: 20px auto;
+    width: 80%; /* Adjust width as needed */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    top: 120px; /* Adjust this value to make the box visible right under the header */
+    z-index: 20;
+    text-align: center; /* Center the content for better readability */
+}

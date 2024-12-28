@@ -1,0 +1,39 @@
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("volition.JPEG ") no-repeat center center/cover;
+}
+.centred {
+    position: fixed;
+    inset: 0px;
+    width: 19em;
+    height: 5em;
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: auto;
+}
+.nav-container {
+    background-color: rgba(43, 43, 43, 0.7); /* Dark brown-gray */
+}
+
+.nav-list li a {
+    color: #eae0c8; /* Beige */
+}
+
+.nav-list li a:hover {
+    color: #d4b483; /* Softer beige */
+}
+
+.dropdown-menu {
+    background-color: rgba(43, 43, 43, 0.9);
+}
+
+.dropdown-menu li a {
+    color: #eae0c8; /* Beige */
+}
+
+.dropdown-menu li a:hover {
+    background-color: #d4b483; /* Softer beige */
+    color: #2b2b2b; /* Dark brown-gray text */
+}

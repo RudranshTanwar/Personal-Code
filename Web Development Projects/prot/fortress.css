@@ -1,0 +1,84 @@
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("fortress.jpg") no-repeat center center/cover;
+}
+
+.centred {
+    position: fixed;
+    inset: 0px;
+    width: 8em;
+    height: 5em;
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: auto;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #f0e6d6;
+    font-family: Arial, sans-serif;
+}
+
+.nav-list li {
+    display: inline;
+    margin-right: 15px;
+}
+
+.nav-list a {
+    color: #f0e6d6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-list a:hover {
+    color: #c44b28;
+}
+
+.footer {
+    background-color: #8b6b28;
+    color: #f0e6d6;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer a {
+    color: #f0e6d6;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #c44b28;
+}
+
+.typewriter {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2.5em;
+    color: #c44b28;
+}
+
+.floating-box {
+    background-color: #262626;
+    color: #f0e6d6;
+    border: 1px solid #8b6b28;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+#album-cover {
+    border: 5px solid #c44b28;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: #f0e6d6;
+}
+
+h3 {
+    color: #c44b28;
+}

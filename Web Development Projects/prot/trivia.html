@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blooket-Style Trivia</title>
+        <style>
+            @font-face {
+                font-family: "Montserrat";
+                font-style: normal;
+                font-weight: 400;
+                src: url("https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aX8.ttf")
+                    format("truetype");
+            }
+
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                font-family: "Montserrat", sans-serif;
+                color: #333;
+                background-color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* NAVIGATION BAR */
+            .nav-container {
+                width: 100%;
+                background-color: rgba(
+                    138,
+                    43,
+                    226,
+                    0.8
+                ); /* Dull purple header */
+                padding: 15px;
+                display: flex;
+                justify-content: center;
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .nav-list {
+                display: flex;
+                list-style: none;
+                gap: 20px;
+            }
+
+            .nav-list li a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+                text-transform: uppercase;
+                font-weight: bold;
+                padding: 5px 10px;
+            }
+
+            .nav-list li a:hover {
+                background-color: #fff;
+                color: #8a2be2;
+                border-radius: 5px;
+                transition: 0.3s;
+            }
+
+            /* Trivia Container */
+            .trivia-container {
+                margin-top: 100px;
+                max-width: 800px;
+                width: 90%;
+                padding: 40px;
+                text-align: center;
+            }
+
+            #question {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            /* Answer Buttons */
+            .options {
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* Two buttons per row */
+                gap: 20px;
+            }
+
+            button {
+                padding: 40px;
+                font-size: 1.5rem;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                transition:
+                    transform 0.3s ease,
+                    background-color 0.3s ease;
+            }
+
+            button:hover {
+                transform: scale(1.05);
+            }
+
+            .yellow {
+                background-color: #f4b400; /* Blooket yellow */
+            }
+
+            .blue {
+                background-color: #4285f4; /* Blooket blue */
+            }
+
+            .green {
+                background-color: #0f9d58; /* Blooket green */
+            }
+
+            .red {
+                background-color: #db4437; /* Blooket red */
+            }
+
+            /* Footer */
+            .footer {
+                width: 100%;
+                background-color: rgba(138, 43, 226, 0.8); /* Same as header */
+                padding: 20px;
+                text-align: center;
+                color: white;
+                font-size: 0.9em;
+                position: fixed;
+                bottom: 0;
+            }
+
+            .footer a {
+                color: #88d3ce;
+                text-decoration: none;
+                margin: 5px 15px;
+            }
+
+            .footer a:hover {
+                color: #fff;
+            }
+
+            /* Responsiveness */
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                button {
+                    font-size: 14px;
+                    padding: 10px 20px;
+                }
+
+                .trivia-container {
+                    padding: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- NAVIGATION BAR -->
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">You</a></li>
+                <li><a href="#">Are</a></li>
+                <li><a href="#">On</a></li>
+                <li><a href="#">Trivia</a></li>
+            </ul>
+        </div>
+
+        <!-- Trivia Section -->
+        <div class="trivia-container">
+            <div id="question">Loading first question...</div>
+            <div class="options">
+                <button class="yellow" id="option1" onclick="checkAnswer(1)">
+                    Option 1
+                </button>
+                <button class="blue" id="option2" onclick="checkAnswer(2)">
+                    Option 2
+                </button>
+                <button class="green" id="option3" onclick="checkAnswer(3)">
+                    Option 3
+                </button>
+                <button class="red" id="option4" onclick="checkAnswer(4)">
+                    Option 4
+                </button>
+            </div>
+            <div
+                id="feedback"
+                style="margin-top: 20px; font-size: 1.5rem"
+            ></div>
+        </div>
+
+        <script>
+            let currentQuestionIndex = 0;
+            let correctAnswers = 0;
+            let wrongAnswers = 0;
+
+            const triviaData = [
+                {
+                    question:
+                        "What was the name of Protest The Hero's first EP?",
+                    options: [
+                        "A Calculated Use of Sound",
+                        "Fortress",
+                        "Volition",
+                        "Puns and Progressions",
+                    ],
+                    answer: 1,
+                    feedback: [
+                        "Correct! Their first EP was 'A Calculated Use of Sound'.",
+                        "Nope! 'Fortress' came later.",
+                        "Wrong era! 'Volition' is from 2013.",
+                        "Nice try, but they left the puns for the lyrics!",
+                    ],
+                },
+                {
+                    question: "Which Protest The Hero album was crowdfunded?",
+                    options: ["Kezia", "Volition", "Palimpsest", "Fortress"],
+                    answer: 2,
+                    feedback: [
+                        "Nope! Kezia was released through a label.",
+                        "Correct! 'Volition' was famously funded by their fans.",
+                        "Palimpsest wasn't crowdfunded.",
+                        "Fortress had traditional label support.",
+                    ],
+                },
+                {
+                    question:
+                        "Which member is known for their humorous on-stage banter?",
+                    options: [
+                        "Luke Hoskin",
+                        "Rody Walker",
+                        "Tim Millar",
+                        "Moe Carlson",
+                    ],
+                    answer: 2,
+                    feedback: [
+                        "Luke is the guitarist, not so much the comedian!",
+                        "Correct! Rody Walker's on-stage banter is legendary.",
+                        "Tim is more focused on shredding than jokes.",
+                        "Moe Carlson was the drummer, not the joker!",
+                    ],
+                },
+                {
+                    question:
+                        "Which Protest The Hero album is considered a concept album centered on a woman's execution?",
+                    options: ["Fortress", "Scurrilous", "Kezia", "Volition"],
+                    answer: 3,
+                    feedback: [
+                        "Fortress has mythological themes but not this story.",
+                        "Nope, Scurrilous is a more personal album.",
+                        "Correct! 'Kezia' tells a conceptual story about a woman's execution.",
+                        "Volition is not a concept album.",
+                    ],
+                },
+                {
+                    question:
+                        "Which song from Protest The Hero starts with the line 'Without a word uttered, a comparison is drawn'?",
+                    options: [
+                        "Blindfolds Aside",
+                        "Sequoia Throne",
+                        "Bloodmeat",
+                        "C'est La Vie",
+                    ],
+                    answer: 1,
+                    feedback: [
+                        "Correct! 'Blindfolds Aside' starts with this powerful line.",
+                        "Nope! 'Sequoia Throne' has a different opener.",
+                        "That's a line from 'Bloodmeat', but it's not the opener.",
+                        "C'est La Vie starts differently.",
+                    ],
+                },
+                {
+                    question:
+                        "What is the title of the 2020 Protest The Hero album?",
+                    options: [
+                        "Fortress",
+                        "Palimpsest",
+                        "Scurrilous",
+                        "Volition",
+                    ],
+                    answer: 2,
+                    feedback: [
+                        "Fortress is much older!",
+                        "Correct! 'Palimpsest' was released in 2020.",
+                        "Nope, 'Scurrilous' came out in 2011.",
+                        "Volition is from 2013.",
+                    ],
+                },
+                {
+                    question:
+                        "Which of these Protest The Hero songs features a music video in a post-apocalyptic setting?",
+                    options: [
+                        "Clarity",
+                        "Bloodmeat",
+                        "Sequoia Throne",
+                        "Hair-Trigger",
+                    ],
+                    answer: 2,
+                    feedback: [
+                        "Nope! 'Clarity' has a different theme.",
+                        "Correct! 'Bloodmeat' has an epic, apocalyptic video.",
+                        "Sequoia Throne has a sci-fi theme but not post-apocalyptic.",
+                        "Hair-Trigger is more of a relationship-focused song.",
+                    ],
+                },
+                {
+                    question:
+                        "Which song from 'Kezia' addresses the executioner’s role?",
+                    options: [
+                        "No Stars Over Bethlehem",
+                        "Turn Soonest to the Sea",
+                        "Blindfolds Aside",
+                        "Heretics and Killers",
+                    ],
+                    answer: 3,
+                    feedback: [
+                        "No Stars Over Bethlehem covers a different perspective.",
+                        "Turn Soonest to the Sea focuses on societal issues, not the executioner.",
+                        "Correct! 'Blindfolds Aside' delves into the executioner's point of view.",
+                        "Heretics and Killers is more introspective.",
+                    ],
+                },
+                {
+                    question: "Who is the lead guitarist of Protest The Hero?",
+                    options: [
+                        "Tim Millar",
+                        "Rody Walker",
+                        "Luke Hoskin",
+                        "Cam McLellan",
+                    ],
+                    answer: 3,
+                    feedback: [
+                        "Tim Millar is the rhythm guitarist.",
+                        "Rody is the lead vocalist, not the guitarist.",
+                        "Correct! Luke Hoskin is the lead guitarist of Protest The Hero.",
+                        "Cam is the bassist, not the guitarist!",
+                    ],
+                },
+                {
+                    question:
+                        "Which Protest The Hero album features the song 'Bone Marrow'?",
+                    options: [
+                        "Scurrilous",
+                        "Fortress",
+                        "Volition",
+                        "Palimpsest",
+                    ],
+                    answer: 2,
+                    feedback: [
+                        "Scurrilous has some great songs, but not 'Bone Marrow'.",
+                        "Correct! 'Bone Marrow' is from 'Fortress'.",
+                        "Nope, 'Volition' has different tracks.",
+                        "Palimpsest doesn't have this track.",
+                    ],
+                },
+            ];
+
+            function loadQuestion() {
+                const questionData = triviaData[currentQuestionIndex];
+                document.getElementById("question").innerText =
+                    questionData.question;
+                document.getElementById("option1").innerText =
+                    questionData.options[0];
+                document.getElementById("option2").innerText =
+                    questionData.options[1];
+                document.getElementById("option3").innerText =
+                    questionData.options[2];
+                document.getElementById("option4").innerText =
+                    questionData.options[3];
+                document.getElementById("feedback").innerText = "";
+            }
+
+            function checkAnswer(selectedOption) {
+                const questionData = triviaData[currentQuestionIndex];
+                const feedbackMessage =
+                    questionData.feedback[selectedOption - 1];
+                document.getElementById("feedback").innerText = feedbackMessage;
+
+                if (selectedOption === questionData.answer) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswers++;
+                }
+
+                setTimeout(() => {
+                    nextQuestion();
+                }, 2000);
+            }
+
+            function nextQuestion() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < triviaData.length) {
+                    loadQuestion();
+                } else {
+                    endQuiz();
+                }
+            }
+
+            function endQuiz() {
+                document.getElementById("question").innerText =
+                    "Quiz Complete!";
+                document.getElementById("feedback").innerText =
+                    `You got ${correctAnswers} correct and ${wrongAnswers} wrong.`;
+                document.getElementById("option1").style.display = "none";
+                document.getElementById("option2").style.display = "none";
+                document.getElementById("option3").style.display = "none";
+                document.getElementById("option4").style.display = "none";
+            }
+
+            window.onload = loadQuestion;
+        </script>
+
+        <!-- Footer -->
+        <div class="footer">
+            P.S If you are Blooket(tm) legal team, do not sue me please.
+        </div>
+    </body>
+</html>

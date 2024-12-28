@@ -1,0 +1,282 @@
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    src: url("http://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aX8.ttf")
+        format("truetype");
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    background-color: #000;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.image-container {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    background: url("bandshot.jpeg") no-repeat center center/cover;
+    overflow: hidden;
+}
+
+.nav-container {
+    position: fixed;
+    top: 30px;
+    right: 50px;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-list li {
+    display: inline;
+    position: relative;
+}
+
+.nav-list li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-list li a:hover {
+    color: #d3bca3;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+}
+
+.nav-list li:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    text-align: center;
+}
+
+.dropdown-menu li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #d3bca3;
+    color: #333;
+}
+
+.logo {
+    position: fixed;
+    top: 30px;
+    left: 50px;
+    z-index: 20;
+}
+
+.logo img {
+    height: 80px;
+}
+
+.overlay-text {
+    position: absolute;
+    bottom: 50%;
+    right: 41.3%;
+    font-size: 1.5em;
+    letter-spacing: 2px;
+}
+
+.button {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.typewriter h1 {
+    font-size: 50px;
+    overflow: hidden;
+    border-right: 0.15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation:
+        typing 2.5s steps(40, end),
+        blink-caret 0.75s step-end infinite,
+        fade-out 5s ease-out 2.5s forwards; /* Add this to handle fade out */
+    opacity: 1;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: transparent;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.centred {
+    position: fixed;
+    inset: 0px;
+    width: 35rem;
+    height: 5rem;
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: auto;
+}
+
+.floating-box {
+    position: relative;
+    margin: 20px auto;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+    text-justify: distribute-all-lines;
+}
+
+.floating-box h2 {
+    margin-top: 0;
+}
+
+#centre {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 20;
+}
+
+#members {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 20px auto;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+    width: 800px;
+    height: 500px;
+}
+
+#centre2 {
+    position: relative;
+    top: 70%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+.footer {
+    background-color: #111;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.footer-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.footer a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}
+::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #ff0000;
+}
