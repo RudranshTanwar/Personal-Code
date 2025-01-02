@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdbool.h>
 // #include "math.h"             --Redundant,Build later.
 float arith();
 float geo();
 float alg();
 float linear();
-int main() {
+float sort();
+int main()  {
 
     float op;
 
@@ -18,10 +20,11 @@ int main() {
             float answer = arith();
 
             printf("The result is: %.2f\n", answer);
-            printf("Would you like to continue with the calculations? (y/N): ");
+            printf("Would you like to continue with the calculations? (y/n): ");
             char ans;
             scanf(" %c", &ans);
-            if (ans == 'y' || ans == 'Y') {
+            bool continueCalculation = (ans == 'y' || ans == 'Y');
+            if (continueCalculation) {
                 printf("\nStarting a new session.\n\n");
                 main();
             }
@@ -127,13 +130,13 @@ float geo() {
     printf("\nWhat kind of object am I performing this on?\n");
     printf("1.2D Object\n2.3D Object\n\n");
     scanf("%f", &choice);
-    switch ((int)choice) {
+    switch ((int) choice) {
         case 1: {
             float shape;
             printf("\nChoose a shape:\n");
             printf("1.Square\n2.Rectangle\n3.Circle\n4.Triangle\n");
             scanf("%f", &shape);
-            switch ((int)shape) {
+            switch ((int) shape) {
                 case 1: {
                     float s;
                     printf("\nEnter the length of the side: ");
@@ -152,7 +155,7 @@ float geo() {
                     float r, pi = 3.14159;
                     printf("\nEnter the radius: ");
                     scanf("%f", &r);
-                    return pi * r * r; // Area of a circle
+                    return pi * r * r;
                 }
                 case 4: {
                     float b, h;
@@ -160,17 +163,44 @@ float geo() {
                     scanf("%f", &b);
                     printf("Enter the height: ");
                     scanf("%f", &h);
-                    return 0.5 * b * h; // Area of a triangle
+                    return 0.5 * b * h;
                 }
             }
             return 0; // Default for invalid 2D shape
         }
         case 2: {
-            printf("\n3D calculations are not yet supported.\n");
+            float shape;
+            printf("\nChoose a 3D object:\n");
+            printf("1.Cube\n2.Sphere\n3.Triangular Prism\n");
+            scanf("%f", &shape);
+            switch ((int)shape) {
+                case 1: { // Cube
+                    float side;
+                    printf("\nEnter the length of the side: ");
+                    scanf("%f", &side);
+                    return side * side * side; // Volume of a cube
+                }
+                case 2: { // Sphere
+                    float radius, pi = 3.14159;
+                    printf("\nEnter the radius of the sphere: ");
+                    scanf("%f", &radius);
+                    return (4.0 / 3.0) * pi * radius * radius * radius; // Volume of a sphere
+                }
+                case 3: { // Triangular Prism
+                    float base, height, length;
+                    printf("\nEnter the base of the triangle: ");
+                    scanf("%f", &base);
+                    printf("Enter the height of the triangle: ");
+                    scanf("%f", &height);
+                    printf("Enter the length of the prism: ");
+                    scanf("%f", &length);
+                    return 0.5 * base * height * length; // Volume of a triangular prism
+                }
+            }
             return 0;
         }
     }
-    return 0; // Default for invalid choice
+    return 0;
 }
 
 float alg() {
