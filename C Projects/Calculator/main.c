@@ -12,7 +12,7 @@ int main()  {
 
     //Code for the calculator
     printf("What genre of math would you like to solve today?\n");
-    printf("\n1.Basic Arithmetic\n2.Geometry\n3.Algebra\n4.Linear\n\n");
+    printf("\n1.Basic Arithmetic\n2.Geometry\n3.Algebra\n4.Linear\n5.Sorting\n\n");
     // 1 is Basic Arithmetic, 2 is Geometry, 3 is Algebra, 4 is Linear
     scanf("%f", &op);
     switch ((int)op) {
@@ -58,6 +58,19 @@ int main()  {
         }
         case 4: {
             float answer = linear();
+
+            printf("The result is: %.2f\n", answer);
+            printf("Would you like to continue with the calculations? (y/n): ");
+            char ans;
+            scanf(" %c", &ans);
+            if (ans == 'y' || ans == 'Y') {
+                printf("\nStarting a new session.\n\n");
+                main();
+            }
+            break;
+        }
+        case 5: {
+            float answer = sort();
 
             printf("The result is: %.2f\n", answer);
             printf("Would you like to continue with the calculations? (y/n): ");
@@ -253,3 +266,65 @@ float linear() {
     x = (c - b) / a;
     return x;
 }
+float sort() {
+    int sel;
+    printf("\nWould you like it to be sort DESCENDING or ASCENDING?(1/2)\n");
+    scanf("%d",&sel);
+
+            if(sel==1){
+            int i,j,a,la,inpi;
+            printf("\nHow long is your array gonna be?\n");
+            scanf("%d", &la);
+            int array[la];
+            for(inpi=0;inpi<la;inpi++){
+                printf("\nThe %d number in the array:\n",inpi);
+                scanf("%d",&array[inpi]);
+            }
+            for (i=0;i<la;i++){
+                for(j=i+1;j<la;j++){
+                    if(array[i]<array[j]){
+                        a = array[i];
+                        array[i]=array[j];
+                        array[j]=a;
+                    }
+                }
+            }
+            int f;
+            printf("\n");
+            for(f=0;f<la;f++){
+                printf("%d",array[f]);
+            }
+            printf("\n");
+            }
+            if(sel==2){
+
+            int i,j,a,la,inpi;
+            printf("\nHow long is your array gonna be?\n");
+            scanf("%d", &la);
+            int array[la];
+            for(inpi=0;inpi<la;inpi++){
+                printf("\nThe %d number in the array:\n",inpi+1);
+                scanf("%d",&array[inpi]);
+            }
+            for (i=0;i<la;i++){
+                for(j=i+1;j<la;j++){
+                    if(array[i]>array[j]){
+                        a = array[i];
+                        array[i]=array[j];
+                        array[j]=a;
+                    }
+                }
+            }
+            int f;
+            printf("\n");
+            for(f=0;f<la;f++){
+                printf("%d",array[f]);
+            }
+            printf("\n");
+
+            }
+            else{
+                return 0; //default return
+            }
+
+    }
