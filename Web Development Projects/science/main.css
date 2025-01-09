@@ -77,3 +77,13 @@ footer {
 #center {
     text-align: center;
 }
+#sources ul li a {
+    color: #00509e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#sources ul li a:hover {
+    color: #003366;
+    text-decoration: underline;
+}
