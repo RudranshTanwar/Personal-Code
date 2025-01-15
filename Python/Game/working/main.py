@@ -1,5 +1,3 @@
-# Tilemap Demo
-# KidsCanCode 2017
 import pygame as pg
 import sys
 from random import choice, random
@@ -8,7 +6,6 @@ from settings import *
 from sprites import *
 from tilemap import *
 
-# HUD functions
 def draw_player_health(surf, x, y, pct):
     if pct < 0:
         pct = 0
@@ -35,10 +32,28 @@ class Game:
         self.clock = pg.time.Clock()
         self.load_data()
 
-    def draw_text(self, text, font_name, size, color, x, y, align="topleft"):
+    def draw_text(self, text, font_name, size, color, x, y, align="nw"):
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect(**{align: (x, y)})
+        text_rect = text_surface.get_rect()
+        if align == "nw":
+            text_rect.topleft = (x, y)
+        if align == "ne":
+            text_rect.topright = (x, y)
+        if align == "sw":
+            text_rect.bottomleft = (x, y)
+        if align == "se":
+            text_rect.bottomright = (x, y)
+        if align == "n":
+            text_rect.midtop = (x, y)
+        if align == "s":
+            text_rect.midbottom = (x, y)
+        if align == "e":
+            text_rect.midright = (x, y)
+        if align == "w":
+            text_rect.midleft = (x, y)
+        if align == "center":
+            text_rect.center = (x, y)
         self.screen.blit(text_surface, text_rect)
 
     def load_data(self):
@@ -64,12 +79,6 @@ class Game:
         self.item_images = {}
         for item in ITEM_IMAGES:
             self.item_images[item] = pg.image.load(path.join(img_folder, ITEM_IMAGES[item])).convert_alpha()
-        # lighting effect
-        self.fog = pg.Surface((WIDTH, HEIGHT))
-        self.fog.fill(NIGHT_COLOR)
-        self.light_mask = pg.image.load(path.join(img_folder, LIGHT_MASK)).convert_alpha()
-        self.light_mask = pg.transform.scale(self.light_mask, LIGHT_RADIUS)
-        self.light_rect = self.light_mask.get_rect()
         # Sound loading
         pg.mixer.music.load(path.join(music_folder, BG_MUSIC))
         self.effects_sounds = {}
@@ -119,7 +128,6 @@ class Game:
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
         self.paused = False
-        self.night = False
         self.effects_sounds['level_start'].play()
 
     def run(self):
@@ -181,13 +189,6 @@ class Game:
         for y in range(0, HEIGHT, TILESIZE):
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
-    def render_fog(self):
-        # draw the light mask (gradient) onto fog image
-        self.fog.fill(NIGHT_COLOR)
-        self.light_rect.center = self.camera.apply(self.player).center
-        self.fog.blit(self.light_mask, self.light_rect)
-        self.screen.blit(self.fog, (0, 0), special_flags=pg.BLEND_MULT)
-
     def draw(self):
         pg.display.set_caption("{:.2f}".format(self.clock.get_fps()))
         # self.screen.fill(BGCOLOR)
@@ -204,12 +205,10 @@ class Game:
                 pg.draw.rect(self.screen, CYAN, self.camera.apply_rect(wall.rect), 1)
 
         # pg.draw.rect(self.screen, WHITE, self.player.hit_rect, 2)
-        if self.night:
-            self.render_fog()
         # HUD functions
         draw_player_health(self.screen, 10, 10, self.player.health / PLAYER_HEALTH)
-        self.draw_text('Zombies: {}'.format(len(self.mobs)), self.hud_font, 30, WHITE,
-                       WIDTH - 10, 10, align="topright")
+        self.draw_text('OPPS: {}'.format(len(self.mobs)), self.hud_font, 30, WHITE,
+                       WIDTH - 10, 10, align="ne")
         if self.paused:
             self.screen.blit(self.dim_screen, (0, 0))
             self.draw_text("Paused", self.title_font, 105, RED, WIDTH / 2, HEIGHT / 2, align="center")
@@ -227,8 +226,6 @@ class Game:
                     self.draw_debug = not self.draw_debug
                 if event.key == pg.K_p:
                     self.paused = not self.paused
-                if event.key == pg.K_n:
-                    self.night = not self.night
 
     def show_start_screen(self):
         pass
