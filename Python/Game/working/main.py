@@ -89,7 +89,7 @@ class Game:
             self.weapon_sounds[weapon] = []
             for snd in WEAPON_SOUNDS[weapon]:
                 s = pg.mixer.Sound(path.join(snd_folder, snd))
-                s.set_volume(0.3)
+                s.set_volume(0.2)
                 self.weapon_sounds[weapon].append(s)
         self.zombie_moan_sounds = []
         for snd in ZOMBIE_MOAN_SOUNDS:
@@ -123,7 +123,7 @@ class Game:
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y,
                          tile_object.width, tile_object.height)
-            if tile_object.name in ['health', 'shotgun']:
+            if tile_object.name in ['health', 'shotgun','hell']:
                 Item(self, obj_center, tile_object.name)
         self.camera = Camera(self.map.width, self.map.height)
         self.draw_debug = False
@@ -163,6 +163,10 @@ class Game:
                 hit.kill()
                 self.effects_sounds['gun_pickup'].play()
                 self.player.weapon = 'shotgun'
+            if hit.type == 'hell':
+                hit.kill()
+                self.effects_sounds['gun_pickup'].play()
+                self.player.weapon = 'hell'
         # mobs hit player
         hits = pg.sprite.spritecollide(self.player, self.mobs, False, collide_hit_rect)
         for hit in hits:
@@ -190,7 +194,7 @@ class Game:
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
     def draw(self):
-        pg.display.set_caption("{:.2f}".format(self.clock.get_fps()))
+        pg.display.set_caption("{:.12f} OPP POPPER".format(self.clock.get_fps()))
         # self.screen.fill(BGCOLOR)
         self.screen.blit(self.map_img, self.camera.apply(self.map))
         # self.draw_grid()
@@ -232,7 +236,8 @@ class Game:
 
     def show_go_screen(self):
         self.screen.fill(BLACK)
-        self.draw_text("GAME OVER", self.title_font, 100, RED,
+
+        self.draw_text("You were popped by an opp", self.title_font, 75, RED,
                        WIDTH / 2, HEIGHT / 2, align="center")
         self.draw_text("Press a key to start", self.title_font, 75, WHITE,
                        WIDTH / 2, HEIGHT * 3 / 4, align="center")
