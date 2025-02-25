@@ -24,7 +24,7 @@ GRIDHEIGHT = HEIGHT / TILESIZE
 
 # Player settings
 PLAYER_HEALTH = 800
-PLAYER_SPEED = 400
+PLAYER_SPEED = 250
 PLAYER_ROT_SPEED = 200
 PLAYER_IMG = 'manBlue_gun.png'
 PLAYER_HIT_RECT = pg.Rect(0, 0, 35, 35)
@@ -52,7 +52,7 @@ WEAPONS['shotgun'] = {'bullet_speed': 400,
                       'bullet_count': 500}
 WEAPONS['hell'] = {'bullet_speed': 500,
                     'bullet_lifetime': 2500,
-                    'rate': 1750,
+                    'rate': 850,
                     'kickback': 1000,
                     'spread': 360,
                     'damage': 50,
